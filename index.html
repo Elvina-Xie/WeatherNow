@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>WeatherNow - Smart Weather Dashboard</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><div class="bar wrap">
+  <div class="brand"><i data-i="cloud-sun"></i><span>WeatherNow</span></div>
+  <form id="searchForm" class="search" role="search">
+    <label for="cityInput" class="sr">City name</label>
+    <input id="cityInput" type="text" placeholder="Search a city, e.g. Pune" autocomplete="off">
+    <button id="searchBtn" type="submit" class="btn primary"><i data-i="search"></i><span>Search</span></button>
+  </form>
+  <button id="themeBtn" class="icon-btn" type="button" aria-label="Switch theme"></button>
+</div></header>
+<main class="wrap">
+  <div id="status" class="status" role="status" aria-live="polite" hidden></div>
+  <div id="empty" class="card pad">Search for a city to see live weather.</div>
+  <div id="dash" hidden>
+    <section class="card hero" aria-label="Current weather">
+      <div class="hero-l">
+        <p id="stale" class="badge s1" hidden>Last successfully loaded city</p>
+        <h2><span id="place"></span> <button id="favBtn" class="icon-btn flat" type="button" aria-pressed="false"></button></h2>
+        <p id="ltime" class="muted"></p>
+        <p id="summary"></p>
+      </div>
+      <div class="hero-r"><span id="bigIcon" class="big"></span><div><div id="temp" class="temp"></div><div id="cond" class="cond"></div></div></div>
+    </section>
+    <section class="grid g-det" id="details" aria-label="Weather details"></section>
+    <section class="card pad"><h3>Next 24 hours</h3><div id="hourly" class="scroll"></div></section>
+    <section class="card pad"><h3>Five-day forecast</h3><div id="daily" class="grid g-day"></div></section>
+    <section class="card pad"><h3>Weather Map</h3>
+      <p class="row"><span id="riskBadge" class="badge"></span><span id="riskWhy" class="muted"></span><button id="centerBtn" class="btn" type="button">Center on city</button></p>
+      <div id="mapBox"><div id="map" role="region" aria-label="Interactive map"></div>
+        <div id="tileMsg" class="tilemsg" role="alert" hidden><p id="tileText"></p><button id="tileRetry" class="btn" type="button">Retry map tiles</button></div></div>
+      <p class="note">Map blank or showing an error image? Open the site at http://localhost:8080 (Docker) or add a free Stadia Maps key in <code>script.js</code> (see README). <button id="reloadTiles" class="btn" type="button">Reload map tiles</button></p>
+      <label class="chk"><input type="checkbox" id="heatToggle" checked> Show temperature heat layer</label>
+      <div class="scalewrap"><div id="scale" class="scale" role="img" aria-label="Temperature color scale in degrees Celsius"></div><div id="ticks" class="ticks"></div></div>
+      <p id="heatMsg" class="note"></p>
+      <ul class="legend">
+        <li><i class="dot k0"></i>Green: generally favorable</li><li><i class="dot k1"></i>Yellow: caution</li>
+        <li><i class="dot k2"></i>Orange: elevated risk</li><li><i class="dot k3"></i>Red: high risk</li>
+      </ul>
+      <p class="note">Informational activity-risk indicator calculated from forecast data. It is not an official weather warning and not a live radar overlay. The temperature layer is smoothly interpolated between forecast points around the city, so it is an estimate, not a measured radar image. Dots below describe the city marker risk colors. The street map underneath comes from OpenStreetMap (or Stadia Maps if you add a key); no weather radar is shown.</p>
+    </section>
+    <section class="card pad"><h3>Weather Precautions &amp; Safety Advice</h3>
+      <ul id="why" class="why"></ul><div id="groups" class="grid g-grp"></div>
+      <p class="note">General precautions, not medical advice. Pregnant women should follow their healthcare provider's guidance. Always follow official local weather warnings and emergency instructions.</p>
+    </section>
+    <section class="card pad"><h3>Lifestyle &amp; Activity Advice</h3><div id="acts" class="grid g-act"></div>
+      <p class="note">Informational recommendations, not guarantees of safety. For drones, check local aviation rules and your manufacturer's limits.</p>
+    </section>
+  </div>
+  <section class="two">
+    <div class="card pad"><h3>Favorite Cities</h3><div id="favorites" class="chips"></div></div>
+    <div class="card pad"><h3>Recent Searches</h3><div id="recent" class="chips"></div></div>
+  </section>
+</main>
+<footer class="wrap"></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
