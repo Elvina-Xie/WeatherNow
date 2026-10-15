@@ -33,9 +33,10 @@ pipeline {
                 }
             }
         }
+        
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t weathernow:latest .'
+                sh 'docker build -t weathernow:latest .'
                 echo 'Docker image weathernow:latest built successfully. (Image is built only, not deployed.)'
             }
         }
